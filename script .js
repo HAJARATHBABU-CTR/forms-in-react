@@ -1,42 +1,16 @@
-const { useState } = React;
+const form = document.getElementById('simpleForm');
+const nameInput = document.getElementById('name');
+const message = document.getElementById('message');
 
-function MessageDisplay({ message }) {
-    return React.createElement(
-        'div',
-        {
-            style: {
-                border: '1px solid #ccc',
-                padding: '20px',
-                borderRadius: '8px'
-            }
-        },
-        React.createElement('h2', null, 'Message from Parent'),
-        React.createElement('p', null, message)
-    );
+function handleSubmit(event) {
+    event.preventDefault();
+
+    const name = nameInput.value;
+
+    message.textContent = `Hello, ${name}! Your form has been submitted.`;
+    message.style.display = 'block';
+
+    form.style.display = 'none';
 }
 
-function ParentComponent() {
-    const [message, setMessage] = useState(
-        'Hello from the parent component!'
-    );
-
-    return React.createElement(
-        'div',
-        {
-            style: {
-                padding: '40px',
-                textAlign: 'center'
-            }
-        },
-        React.createElement('h1', null, 'React Props Example'),
-        React.createElement(MessageDisplay, {
-            message: message
-        })
-    );
-}
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-
-root.render(
-    React.createElement(ParentComponent)
-);
+form.addEventListener('submit', handleSubmit);
